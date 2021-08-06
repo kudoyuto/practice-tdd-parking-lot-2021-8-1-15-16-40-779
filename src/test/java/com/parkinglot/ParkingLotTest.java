@@ -28,4 +28,19 @@ public class ParkingLotTest {
         ///Then
         assertEquals(car,actualCar);
     }
+    @Test
+    void return_correct_car_when_fetch_the_car_twice_lot_given_a_parking_lot_with_a_parked_car_and_parking_ticket(){
+        //Given
+        Car car =new Car();
+        Car car2 = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket car1ParkingTicket = parkingLot.park(car);
+        ParkingTicket car2ParkingTicket = parkingLot.park(car2);
+        //When
+        Car actualCar = parkingLot.fetch(car1ParkingTicket);
+        Car actualCar2 = parkingLot.fetch(car2ParkingTicket);
+        ///Then
+        assertEquals(car,actualCar);
+        assertEquals(car2,actualCar2);
+    }
 }
