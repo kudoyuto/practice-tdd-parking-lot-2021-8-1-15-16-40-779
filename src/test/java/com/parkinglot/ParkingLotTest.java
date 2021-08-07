@@ -48,47 +48,37 @@ public class ParkingLotTest {
     @Test
     void return_parked_nothing_when_fetch_given_parking_lot_and_wrong_parking_ticket(){
         //Given
-        Car car =new Car();
         ParkingLot parkingLot = new ParkingLot();
-        ParkingTicket parkingTicket = new ParkingTicket();
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
         //When
-        Car actualCar = parkingLot.fetch(parkingTicket);
-        ///Then
-        assertNull(actualCar);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetch(unrecognizedParkingTicket));
+        //Then
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
     @Test
     void return_parked_nothing_when_fetch_given_parking_lot_and_used_parking_ticket(){
-        //Given
-        Car car =new Car();
+        //Given/
         ParkingLot parkingLot = new ParkingLot();
-        ParkingTicket usedParkingTicket = parkingLot.park(car);
-        Car actualCar = parkingLot.fetch(usedParkingTicket);
-
+        ParkingTicket parkingTicket = parkingLot.park(new Car ());
+        parkingLot.fetch(parkingTicket);
         //When
-
-         Car actualCar2 = parkingLot.fetch(usedParkingTicket);
-        ///Then
-        assertEquals(car,actualCar);
-        assertNull(actualCar2);
-
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetch(parkingTicket));
+        //Then
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
     @Test
     void should_return_nothing_when_park_given_full_parking_lot_and_car() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
-        {
-            int parkingCapacity = 10;
-            while (parkingCapacity >= 0) {
-                ParkingTicket carTickets = parkingLot.park((car));
-                parkingCapacity--;
-            }
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        for(int parked= 0 ; parked < 10; parked++){
+            parkingTicket.add(parkingLot.park(car));
         }
-        Car newCarToPark = new Car();
-        //when
-        ParkingTicket newCarParkingTicket = parkingLot.park(newCarToPark);
-        //then
-        assertNull(newCarParkingTicket);
+        //When
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> parkingLot.park(car));
+        //Then
+        assertEquals("No available position", exception.getMessage());
     }
     @Test
     void should_return_nothing_with_error_message_unrecognized_parking_ticket_when_fetch_given_a_parking_lot_unrecognized_ticket(){
@@ -112,9 +102,6 @@ public class ParkingLotTest {
         //Then
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
-    //    Given a parking without any position and car
-//    When park the car
-//    Then return nothing with error message "No available position"
     @Test
     void should_return_nothing_with_error_message_no_available_position_ticket_when_park_given_a_parking_without_position_and_car(){
         //Given/
