@@ -1,5 +1,5 @@
 #Test Cases Story 2
-[] Case 1
+[X] Case 1
     Given a parking lot and unrecognized ticket   
     When fetch the car   
     Then return nothing with error message "Unrecognized parking ticket"   
