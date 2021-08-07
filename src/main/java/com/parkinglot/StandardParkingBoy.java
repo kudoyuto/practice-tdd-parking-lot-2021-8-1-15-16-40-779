@@ -1,16 +1,23 @@
 package com.parkinglot;
 
+import java.util.List;
+
 public class StandardParkingBoy {
 
-    public void setParkingLot(ParkingLot parkingLot){
-        this.parkingLot = parkingLot;
+    public void setParkingLot(List<ParkingLot> parkingLots){
+        this.parkingLots = parkingLots;
     }
-    private ParkingLot parkingLot;
+    private List<ParkingLot> parkingLots;
 
     public ParkingTicket park(Car car) {
-        return parkingLot.park(car);
+        return getAvailableParkingLot().park(car);
     }
-    public Car fetch(ParkingTicket parkingTicket) {
-        return parkingLot.fetch(parkingTicket);
+    public ParkingLot getAvailableParkingLot() {
+        return null;
     }
+//    public Car fetch(ParkingTicket parkingTicket) {
+//        return parkingLot.fetch(parkingTicket);
+//    }
+
+
 }
