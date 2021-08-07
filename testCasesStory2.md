@@ -3,7 +3,7 @@
     Given a parking lot and unrecognized ticket   
     When fetch the car   
     Then return nothing with error message "Unrecognized parking ticket"   
-[] Case 2
+[X] Case 2
     Given a parking lot and used ticket   
     When fetch the car   
     Then return nothing and give error message "Unrecognized parking ticket"   
