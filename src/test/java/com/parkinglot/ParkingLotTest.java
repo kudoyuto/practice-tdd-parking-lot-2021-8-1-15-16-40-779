@@ -2,6 +2,9 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -109,5 +112,24 @@ public class ParkingLotTest {
         //Then
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
+    //    Given a parking without any position and car
+//    When park the car
+//    Then return nothing with error message "No available position"
+    @Test
+    void should_return_nothing_with_error_message_no_available_position_ticket_when_park_given_a_parking_without_position_and_car(){
+        //Given/
+       ParkingLot parkingLot = new ParkingLot();
+       Car car = new Car();
+       List<ParkingTicket> parkingTicket = new LinkedList<>();
+       for(int parked= 0 ; parked < 10; parked++){
+           parkingTicket.add(parkingLot.park(car));
+       }
+        //When
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> parkingLot.park(car));
+        //Then
+        assertEquals("No available position", exception.getMessage());
+    }
+
+
 
 }
