@@ -142,11 +142,27 @@ public class ParkingLotTest {
         //when
         Car actualCar = parkingBoy.fetch(parkingTicket);
 
-
         //then
         assertNotNull(actualCar);
     }
+    @Test
+     void should_return_car_when_fetch_twice_given_a_parking_lot_with_two_parked_cars_standard_parking_boy_and_two_parking_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        StandardParkingBoy parkingBoy = new StandardParkingBoy();
+        parkingBoy.setParkingLot(parkingLot);
+        Car car = new Car();
+        Car car2 = new Car();
+        ParkingTicket parkingTicket1 = parkingBoy.park(car);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
 
+        //when
+        Car actualCar = parkingBoy.fetch(parkingTicket1);
+        Car actualCar2 = parkingBoy.fetch(parkingTicket2);
 
+        //then
+        assertEquals(car, actualCar);
+        assertEquals(car2, actualCar2);
+    }
 
 }
