@@ -13,7 +13,10 @@ public class StandardParkingBoy {
         return getAvailableParkingLot().park(car);
     }
     public ParkingLot getAvailableParkingLot() {
-        return null;
+        return parkingLots.stream()
+                .filter(ParkingLot::isParkingFull)
+                .findFirst()
+                .orElseThrow(NoAvailablePositionException::new);
     }
 //    public Car fetch(ParkingTicket parkingTicket) {
 //        return parkingLot.fetch(parkingTicket);
