@@ -100,7 +100,7 @@ public class ParkingLotTest {
 
     @Test
     void should_return_nothing_with_error_message_unrecognized_parking_ticket_when_fetch_given_a_parking_lot_used_ticket(){
-        //Given
+        //Given/
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car ());
         parkingLot.fetch(parkingTicket);

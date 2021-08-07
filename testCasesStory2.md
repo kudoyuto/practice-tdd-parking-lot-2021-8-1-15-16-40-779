@@ -6,7 +6,7 @@
 [] Case 2
     Given a parking lot and used ticket   
     When fetch the car   
-    Then return nothing and give error message "No available position"   
+    Then return nothing and give error message "Unrecognized parking ticket"   
 [] Case 3
     Given a parking without any position and car
     When park the car   
