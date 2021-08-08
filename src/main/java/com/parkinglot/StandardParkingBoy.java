@@ -18,9 +18,15 @@ public class StandardParkingBoy {
                 .findFirst()
                 .orElseThrow(NoAvailablePositionException::new);
     }
-//    public Car fetch(ParkingTicket parkingTicket) {
-//        return parkingLot.fetch(parkingTicket);
-//    }
+    public Car fetch(ParkingTicket parkingTicket) {
+        return findParkingLotRelatedTo(parkingTicket).fetch(parkingTicket);
+    }
+    private ParkingLot findParkingLotRelatedTo(ParkingTicket parkingTicket){
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.isRelatedTo(parkingTicket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+    }
 
 
 }
