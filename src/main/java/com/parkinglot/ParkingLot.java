@@ -8,7 +8,14 @@ public class ParkingLot {
 
     private Car car;
     private Map<ParkingTicket,Car> parkedPositions = new HashMap<>();
-    private int parking_maximum_capacity =10;
+    private static final int parking_maximum_capacity =10;
+    private int parkingCapacity;
+    public ParkingLot() {
+        this(parking_maximum_capacity);
+    }
+    public ParkingLot(int capacity){
+        this.parkingCapacity = capacity;
+    }
 
     public ParkingTicket park(Car car){
 
@@ -21,20 +28,19 @@ public class ParkingLot {
 
     }
     public Car fetch(ParkingTicket parkingTicket){
-        if(isTicketRecognized(parkingTicket)){
-            throw new UnrecognizedParkingTicketException();
-        }
+
 
          final Car car = parkedPositions.get(parkingTicket);
 
          parkedPositions.remove(parkingTicket);
          return car;
     }
-    public Boolean isTicketRecognized(ParkingTicket parkingTicket){
 
-        return !parkedPositions.containsKey(parkingTicket);
-    }
     public static Boolean isParkingFull(ParkingLot parkingLot){
-    return parkingLot.parkedPositions.size() < parkingLot.parking_maximum_capacity;
+    return  parkingLot.parkedPositions.size() < parkingLot.parkingCapacity;
+    }
+
+    public boolean isRelatedTo(ParkingTicket parkingTicket) {
+        return parkedPositions.containsKey(parkingTicket);
     }
 }
