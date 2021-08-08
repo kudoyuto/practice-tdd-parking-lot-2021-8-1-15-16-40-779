@@ -18,4 +18,8 @@
 [x] Case5  
     Given a standard parking boy manages two parking lots and a used ticket,  
     When fetch car     
-    Then return nothing with error message "Unrecognized parking ticket."
+    Then return nothing with error message "Unrecognized parking ticket."   
+[x] Case6  
+    Given a standard parking boy, manages two parking lots, both no position and a car     
+    When park car    
+    Then return nothing with error message "No available position"   
