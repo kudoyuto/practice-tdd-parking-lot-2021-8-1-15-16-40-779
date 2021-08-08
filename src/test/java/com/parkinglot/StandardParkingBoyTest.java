@@ -121,6 +121,7 @@ public class StandardParkingBoyTest {
         //then
         assertEquals(car, parkingLots.get(0).fetch(parkingTicket));
     }
+
     @Test
     void should_return_park_in_the_second_parking_lot_when_park_given_standard_parking_boy_with_two_parking_lots_first_is_full_and_second_with_available_position_and_a_car() {
         //given
@@ -135,6 +136,7 @@ public class StandardParkingBoyTest {
         //then
         assertEquals(car, parkingLots.get(1).fetch(parkingTicket));
     }
+
     @Test
     void should_return_the_right_car_with_each_ticket_when_fetch_given_a_standard_parking_boy_with_two_parking_lots_both_with_a_parked_car_and_two_tickets() {
         //given
@@ -154,6 +156,7 @@ public class StandardParkingBoyTest {
         assertEquals(car1, firstActualCar);
         assertEquals(car2, secondActualCar);
     }
+
     @Test
     void should_return_exception_with_error_message_when_fetch_given_a_standard_parking_boy_with_two_parking_lots_both_and_an_unrecognized_ticket() {
         //given
@@ -163,6 +166,20 @@ public class StandardParkingBoyTest {
         ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
         //when
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(unrecognizedParkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
+    }
+
+    @Test
+    void should_return_exception_with_error_message_when_fetch_given_a_standard_parking_boy_with_two_parking_lots_both_and_a_used_ticket() {
+        //given
+        List<ParkingLot> parkingLots = Arrays.asList(new ParkingLot(), new ParkingLot());
+        StandardParkingBoy parkingBoy = new StandardParkingBoy();
+        parkingBoy.setParkingLot(parkingLots);
+        ParkingTicket usedParkingTicket = parkingBoy.park(new Car());
+        parkingBoy.fetch(usedParkingTicket);
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(usedParkingTicket));
         //then
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
