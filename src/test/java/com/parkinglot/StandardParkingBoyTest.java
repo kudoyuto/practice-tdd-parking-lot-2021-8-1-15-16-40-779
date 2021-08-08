@@ -108,18 +108,51 @@ public class StandardParkingBoyTest {
 //    }
 
     @Test
-    void should_return_park_in_the_first_parking_lot_when_park_given_two_parking_lot_standard_parking_boy_and_a_car() {
+    void should_return_park_in_the_first_parking_lot_when_park_given_two_parking_lots_and_standard_parking_boy_and_a_car() {
         //given
-        List<ParkingLot> parkingLots = Arrays.asList(new ParkingLot(), new ParkingLot());
+        List<ParkingLot> parkingLots = Arrays.asList(new ParkingLot(10), new ParkingLot(10));
         StandardParkingBoy parkingBoy = new StandardParkingBoy();
         parkingBoy.setParkingLot(parkingLots);
         Car car = new Car();
 
         //when
-        ParkingTicket parkingTicket =parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         //then
-        assertNotNull(parkingTicket);
+        assertEquals(car, parkingLots.get(0).fetch(parkingTicket));
+    }
+    @Test
+    void should_return_park_in_the_second_parking_lot_when_park_given_standard_parking_boy_with_two_parking_lots_first_is_full_and_second_with_available_position_and_a_car() {
+        //given
+        List<ParkingLot> parkingLots = Arrays.asList(new ParkingLot(10), new ParkingLot(10));
+        StandardParkingBoy parkingBoy = new StandardParkingBoy();
+        parkingBoy.setParkingLot(parkingLots);
+        Car car = new Car();
+
+        //when
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        //then
+        assertEquals(car, parkingLots.get(1).fetch(parkingTicket));
+    }
+    @Test
+    void should_return_the_right_car_with_each_ticket_when_fetch_given_a_standard_parking_boy_with_two_parking_lots_both_with_a_parked_car_and_two_tickets() {
+        //given
+        List<ParkingLot> parkingLots = Arrays.asList(new ParkingLot(), new ParkingLot());
+        StandardParkingBoy parkingBoy = new StandardParkingBoy();
+        parkingBoy.setParkingLot(parkingLots);
+        Car car1 = new Car();
+        Car car2 = new Car();
+        ParkingTicket firstParkingTicket = parkingBoy.park(car1);
+        ParkingTicket secondParkingTicket = parkingBoy.park(car2);
+
+        //when
+        Car firstActualCar = parkingBoy.fetch(firstParkingTicket);
+        Car secondActualCar = parkingBoy.fetch(secondParkingTicket);
+
+        //then
+        assertEquals(car1, firstActualCar);
+        assertEquals(car2, secondActualCar);
     }
 }
 
